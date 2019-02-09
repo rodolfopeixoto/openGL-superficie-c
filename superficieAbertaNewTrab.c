@@ -361,29 +361,28 @@ void MostrarUmPatch(int cc)
                     
                     // criando 1ro triangulo do quadrilatero
                     
-                    vector_a[X] = ptsPatch->ponto[i+1][j][X] - ptsPatch->ponto[i][j][X];
-                    vector_a[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i][j][Y];
-                    vector_a[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i][j][Z];
+                    vector_a[X] = ptsPatch->ponto[i][j][X] - ptsPatch->ponto[i+1][j][X];
+                    vector_a[Y] = ptsPatch->ponto[i][j][Y] - ptsPatch->ponto[i+1][j][Y];
+                    vector_a[Z] = ptsPatch->ponto[i][j][Z] - ptsPatch->ponto[i+1][j][Z];
                     
-                    vector_b[X] = ptsPatch->ponto[i][j+1][X] - ptsPatch->ponto[i][j][X];
-                    vector_b[Y] = ptsPatch->ponto[i][j+1][Y] - ptsPatch->ponto[i][j][Y];
-                    vector_b[Z] = ptsPatch->ponto[i][j+1][Z] - ptsPatch->ponto[i][j][Z];
+                    vector_b[X] = ptsPatch->ponto[i+1][j+1][X] - ptsPatch->ponto[i+1][j][X];
+                    vector_b[Y] = ptsPatch->ponto[i+1][j+1][Y] - ptsPatch->ponto[i+1][j][Y];
+                    vector_b[Z] = ptsPatch->ponto[i+1][j+1][Z] - ptsPatch->ponto[i+1][j][Z];
                     
-                    normal1[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal1[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal1[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal1[X] = vector_a[Y] * vector_b[Z] - vector_a[Z] * vector_b[Y];
+                    normal1[Y] = vector_a[Z] * vector_b[X] - vector_a[X] * vector_b[Z];
+                    normal1[Z] = vector_a[X] * vector_b[Y] - vector_a[Y] * vector_b[X];
                     
                     // criando 2do triangulo do quadrilatero
                     
+                    vector_a[X] = ptsPatch->ponto[i][j][X] - ptsPatch->ponto[i][j+1][X];
+                    vector_a[Y] = ptsPatch->ponto[i][j][Y] - ptsPatch->ponto[i][j+1][Y];
+                    vector_a[Z] = ptsPatch->ponto[i][j][Z] - ptsPatch->ponto[i][j+1][Z];
                     
-                    vector_a[X] = ptsPatch->ponto[i][j+1][X] - ptsPatch->ponto[i+1][j+1][X];
-                    vector_a[Y] = ptsPatch->ponto[i][j+1][Y] - ptsPatch->ponto[i+1][j+1][Y];
-                    vector_a[Z] = ptsPatch->ponto[i][j+1][Z] - ptsPatch->ponto[i+1][j+1][Z];
-                    
-                    vector_b[X] = ptsPatch->ponto[i+1][j][X] - ptsPatch->ponto[i+1][j+1][X];
-                    vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
-                    vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
-                    
+                    vector_b[X] = ptsPatch->ponto[i+1][j+1][X] - ptsPatch->ponto[i][j+1][X];
+                    vector_b[Y] = ptsPatch->ponto[i+1][j+1][Y] - ptsPatch->ponto[i][j+1][Y];
+                    vector_b[Z] = ptsPatch->ponto[i+1][j+1][Z] - ptsPatch->ponto[i][j+1][Z];
+
                     normal2[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
                     normal2[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
                     normal2[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
@@ -391,13 +390,13 @@ void MostrarUmPatch(int cc)
                     // criando 3do triangulo do quadrilatero
                     
                     
-                    vector_a[X] = ptsPatch->ponto[i][j+1][X] - ptsPatch->ponto[i+1][j+1][X];
-                    vector_a[Y] = ptsPatch->ponto[i][j+1][Y] - ptsPatch->ponto[i+1][j+1][Y];
-                    vector_a[Z] = ptsPatch->ponto[i][j+1][Z] - ptsPatch->ponto[i+1][j+1][Z];
+                    vector_a[X] = ptsPatch->ponto[i+1][j][X] - ptsPatch->ponto[i][j][X];
+                    vector_a[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i][j][Y];
+                    vector_a[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i][j][Z];
                     
-                    vector_b[X] = ptsPatch->ponto[i+1][j][X] - ptsPatch->ponto[i+1][j+1][X];
-                    vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
-                    vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
+                    vector_b[X] = ptsPatch->ponto[i][j+1][X] - ptsPatch->ponto[i][j][X];
+                    vector_b[Y] = ptsPatch->ponto[i][j+1][Y] - ptsPatch->ponto[i][j][Y];
+                    vector_b[Z] = ptsPatch->ponto[i][j+1][Z] - ptsPatch->ponto[i][j][Z];
                     
                     normal3[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
                     normal3[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
@@ -414,9 +413,9 @@ void MostrarUmPatch(int cc)
                     vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
                     vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
                     
-                    normal3[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal3[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal3[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal3[X] = vector_a[Y] * vector_b[Z] - vector_a[Z] * vector_b[Y];
+                    normal3[Y] = vector_a[Z] * vector_b[X] - vector_a[X] * vector_b[Z];
+                    normal3[Z] = vector_a[X] * vector_b[Y] - vector_a[Y] * vector_b[X];
                      
                     // ângulo entre às normais
                     angle1 = CalculaAngulo(normal1[X], normal1[Y], normal1[Z], normal2[X], normal2[Y], normal2[Z]);
@@ -424,7 +423,7 @@ void MostrarUmPatch(int cc)
                     
                     
 
-                    if(angle2 < angle1){
+                    if(angle1 > angle2){
                       
                       normal_vector = CalculaNormaDoVetor(normal1[Y], normal1[Y], normal1[Z]);
                       
@@ -438,7 +437,7 @@ void MostrarUmPatch(int cc)
                        
                       product_vector_normal = CalculaAngulo(normal1[X], normal1[Y], normal1[Z], observer[X], observer[Y], observer[Z]);
 
-                      vector_length = CalculaNormaDoVetor(observer[X],observer[Y], observer[Z]);
+                      vector_length = CalculaNormaDoVetor(observer[X], observer[Y], observer[Z]);
                       
                       angle_inclination = product_vector_normal / vector_length;
 
@@ -479,7 +478,7 @@ void MostrarUmPatch(int cc)
                       glBegin(GL_POLYGON);
                         glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
                         glNormal3fv(normal2);
-                        glVertex3fv(ptsPatch->ponto[i][j + 1]);
+                        glVertex3fv(ptsPatch->ponto[i][j+1]);
                         glVertex3fv(ptsPatch->ponto[i + 1][j + 1]);
                         glVertex3fv(ptsPatch->ponto[i + 1][j]);
                       glEnd();
