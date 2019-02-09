@@ -426,7 +426,7 @@ void MostrarUmPatch(int cc)
 
                     if(angle2 < angle1){
                       
-                      normal_vector = CalculaNormaDoVetor(float normal1[Y], normal1[Y], normal1[Z]);
+                      normal_vector = CalculaNormaDoVetor(normal1[Y], normal1[Y], normal1[Z]);
                       
                       normal1[X] = normal1[X] / normal_vector;
                       normal1[Y] = normal1[Y] / normal_vector;
@@ -457,7 +457,7 @@ void MostrarUmPatch(int cc)
                       // Para a normal2
 
                       
-                      normal_vector = CalculaNormaDoVetor(float normal2[Y], normal2[Y], normal2[Z]);
+                      normal_vector = CalculaNormaDoVetor(normal2[Y], normal2[Y], normal2[Z]);
                       
                       normal2[X] = normal2[X] / normal_vector;
                       normal2[Y] = normal2[Y] / normal_vector;
@@ -490,7 +490,7 @@ void MostrarUmPatch(int cc)
 
                       // Para a normal3
                       
-                      normal_vector = CalculaNormaDoVetor(float normal3[Y], normal3[Y], normal3[Z]);
+                      normal_vector = CalculaNormaDoVetor(normal3[Y], normal3[Y], normal3[Z]);
                       
                       normal3[X] = normal3[X] / normal_vector;
                       normal3[Y] = normal3[Y] / normal_vector;
@@ -521,7 +521,7 @@ void MostrarUmPatch(int cc)
 
                       // Para a normal4
                       
-                      normal_vector = CalculaNormaDoVetor(float normal4[Y], normal4[Y], normal4[Z]);
+                      normal_vector = CalculaNormaDoVetor(normal4[Y], normal4[Y], normal4[Z]);
                       
                       normal4[X] = normal4[X] / normal_vector;
                       normal4[Y] = normal4[Y] / normal_vector;
