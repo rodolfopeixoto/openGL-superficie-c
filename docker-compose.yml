@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: bash -c "gcc superficieAbertaNewTrab.c -o superficieAbertaNewTrab -lm -lGL -lGLU -lglut"
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=$ip:0

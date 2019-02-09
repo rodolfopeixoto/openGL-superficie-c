@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include <GLUT/glut.h>
+#include <GL/glut.h>
 
 #define Linha -1
 #define Solido -2
