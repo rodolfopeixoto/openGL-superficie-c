@@ -527,9 +527,9 @@ void MostrarUmPatch(int cc)
                       normal4[Y] = normal4[Y] / normal_vector;
                       normal4[Z] = normal4[Z] / normal_vector;
 
-                      observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
-                      observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
-                      observer[Z] = pView[Z] - ptsPatch->ponto[i][j][Z];
+                      observer[X] = pView[X] - ptsPatch->ponto[i+1][j+1][X];
+                      observer[Y] = pView[Y] - ptsPatch->ponto[i+1][j+1][Y];
+                      observer[Z] = pView[Z] - ptsPatch->ponto[i+1][j+1][Z];
                        
                       product_vector_normal = CalculaAngulo(normal4[X], normal4[Y], normal4[Z], observer[X], observer[Y], observer[Z]);
 
