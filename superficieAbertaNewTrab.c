@@ -95,6 +95,7 @@ matriz *ptsPatch = NULL;   // matriiz de PONTOS na superficie PATCH calclulados
 
 void DisenaSuperficie(void);
 float CalculaAngulo(float,float,float,float,float,float);
+float CalculaNormaDoVetor(float,float,float);
 
 // ----------------------------------------------------------------------------
 // OBSERVACAO 1:
@@ -307,7 +308,7 @@ void ptsSuperficie(matriz *pcPatch)
 void MostrarUmPatch(int cc)
 {
     int i, j;
-    float angle_inclination,vector_length,lenght_normal_vector, product_vector_normal_length;
+    float angle_inclination,vector_length,normal_vector, product_vector_normal;
     float angle1, angle2;
     f4d vector_a,vector_b,normal, observer,normal1, normal2, normal3, normal4;
     
@@ -368,9 +369,9 @@ void MostrarUmPatch(int cc)
                     vector_b[Y] = ptsPatch->ponto[i][j+1][Y] - ptsPatch->ponto[i][j][Y];
                     vector_b[Z] = ptsPatch->ponto[i][j+1][Z] - ptsPatch->ponto[i][j][Z];
                     
-                    normal[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal1[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
+                    normal1[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
+                    normal1[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
                     
                     // criando 2do triangulo do quadrilatero
                     
@@ -383,9 +384,9 @@ void MostrarUmPatch(int cc)
                     vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
                     vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
                     
-                    normal[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal2[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
+                    normal2[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
+                    normal2[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
 
                     // criando 3do triangulo do quadrilatero
                     
@@ -398,9 +399,9 @@ void MostrarUmPatch(int cc)
                     vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
                     vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
                     
-                    normal[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal3[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
+                    normal3[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
+                    normal3[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
 
                     // criando 4do triangulo do quadrilatero
                     
@@ -413,68 +414,142 @@ void MostrarUmPatch(int cc)
                     vector_b[Y] = ptsPatch->ponto[i+1][j][Y] - ptsPatch->ponto[i+1][j+1][Y];
                     vector_b[Z] = ptsPatch->ponto[i+1][j][Z] - ptsPatch->ponto[i+1][j+1][Z];
                     
-                    normal[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
-                    normal[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
-                    normal[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
+                    normal3[X] = vector_a[Y]*vector_b[Z] - vector_a[Z]*vector_b[Y];
+                    normal3[Y] = vector_a[Z]*vector_b[X] - vector_a[X]*vector_b[Z];
+                    normal3[Z] = vector_a[X]*vector_b[Y] - vector_a[Y]*vector_b[X];
                      
                     // ângulo entre às normais
                     angle1 = CalculaAngulo(normal1[X], normal1[Y], normal1[Z], normal2[X], normal2[Y], normal2[Z]);
                     angle2 = CalculaAngulo(normal3[X], normal3[Y], normal3[Z], normal4[X], normal4[Y], normal4[Z]);
                     
                     
-                    lenght_normal_vector = sqrt(normal[X]*normal[X]+normal[Y]*normal[Y]+normal[Z]*normal[Z]);
-                    
-                    normal[X] /= lenght_normal_vector; normal[Y] /= lenght_normal_vector; normal[Z] /= lenght_normal_vector;
-                    
-                    observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
-                    observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
-                    observer[Z] = pView[Z] - ptsPatch->ponto[i][j][Z];
-                    
-                    product_vector_normal_length = normal[X]*observer[X]+normal[Y]*observer[Y]+normal[Z]*observer[Z];
-                    
-                    vector_length = sqrt(observer[X]*observer[X]+observer[Y]*observer[Y]+observer[Z]*observer[Z]);
-                    angle_inclination = product_vector_normal_length / vector_length;
-                    
-                    if(angle_inclination < 0.0f)
+
+                    if(angle2 < angle1){
+                      
+                      normal_vector = CalculaNormaDoVetor(float normal1[Y], normal1[Y], normal1[Z]);
+                      
+                      normal1[X] = normal1[X] / normal_vector;
+                      normal1[Y] = normal1[Y] / normal_vector;
+                      normal1[Z] = normal1[Z] / normal_vector;
+
+                      observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
+                      observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
+                      observer[Z] = pView[Z] - ptsPatch->ponto[i][j][Z];
+                       
+                      product_vector_normal = CalculaAngulo(normal1[X], normal1[Y], normal1[Z], observer[X], observer[Y], observer[Z]);
+
+                      vector_length = CalculaNormaDoVetor(observer[X],observer[Y], observer[Z]);
+                      
+                      angle_inclination = product_vector_normal / vector_length;
+
+                      if(angle_inclination < 0.0f)
                         angle_inclination *= -1.00f;
                     
-                    glBegin(GL_POLYGON);
-                    glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y],angle_inclination * vcolor[cc][Z]);
-                    glNormal3fv(normal);
-                    glVertex3fv(ptsPatch->ponto[i][j]);
-                    glVertex3fv(ptsPatch->ponto[i][j+1]);
-                    glVertex3fv(ptsPatch->ponto[i+1][j]);
-                    glEnd();
+                      glBegin(GL_POLYGON);
+                        glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
+                        glNormal3fv(normal1);
+                        glVertex3fv(ptsPatch->ponto[i][j]);
+                        glVertex3fv(ptsPatch->ponto[i][j+1]);
+                        glVertex3fv(ptsPatch->ponto[i+1][j]);
+                      glEnd();
 
 
+                      // Para a normal2
 
-                      if(angle1 > angle2){
-                        lenght_normal_vector = sqrt(normal[X]*normal[X]+normal[Y]*normal[Y]+normal[Z]*normal[Z]);
-                        
-                        normal[X] /=lenght_normal_vector; normal[Y] /=lenght_normal_vector; normal[Z] /=lenght_normal_vector;
-                        
-                        observer[X] = pView[X] - ptsPatch->ponto[i+1][j+1][X];
-                        observer[Y] = pView[Y] - ptsPatch->ponto[i+1][j+1][Y];
-                        observer[Z] = pView[Z] - ptsPatch->ponto[i+1][j+1][Z];
-                        
-                        product_vector_normal_length = normal[X]*observer[X]+normal[Y]*observer[Y]+normal[Z]*observer[Z];
-                        
-                        vector_length = sqrt(observer[X]*observer[X]+observer[Y]*observer[Y]+observer[Z]*observer[Z]);
-                        angle_inclination = product_vector_normal_length / vector_length;
-                      }
-                    
-                    
-                    if(angle_inclination < 0.0f)
+                      
+                      normal_vector = CalculaNormaDoVetor(float normal2[Y], normal2[Y], normal2[Z]);
+                      
+                      normal2[X] = normal2[X] / normal_vector;
+                      normal2[Y] = normal2[Y] / normal_vector;
+                      normal2[Z] = normal2[Z] / normal_vector;
+
+                      observer[X] = pView[X] - ptsPatch->ponto[i][j+1][X];
+                      observer[Y] = pView[Y] - ptsPatch->ponto[i][j+1][Y];
+                      observer[Z] = pView[Z] - ptsPatch->ponto[i][j+1][Z];
+                       
+                      product_vector_normal = CalculaAngulo(normal2[X], normal2[Y], normal2[Z], observer[X], observer[Y], observer[Z]);
+
+                      vector_length = CalculaNormaDoVetor(observer[X],observer[Y], observer[Z]);
+                      
+                      angle_inclination = product_vector_normal / vector_length;
+
+                      if(angle_inclination < 0.0f)
                         angle_inclination *= -1.00f;
                     
-                    glBegin(GL_POLYGON);
-                      glColor3f(angle_inclination *vcolor[cc][X], angle_inclination *vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
-                      glNormal3fv(normal1);
-                      glVertex3fv(ptsPatch->ponto[i][j]);
-                      glVertex3fv(ptsPatch->ponto[i][j+1]);
-                      glVertex3fv(ptsPatch->ponto[i+1][j]);
-                    glEnd();
+                      glBegin(GL_POLYGON);
+                        glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
+                        glNormal3fv(normal2);
+                        glVertex3fv(ptsPatch->ponto[i][j + 1]);
+                        glVertex3fv(ptsPatch->ponto[i + 1][j + 1]);
+                        glVertex3fv(ptsPatch->ponto[i + 1][j]);
+                      glEnd();
 
+
+                    }else{
+
+
+                      // Para a normal3
+                      
+                      normal_vector = CalculaNormaDoVetor(float normal3[Y], normal3[Y], normal3[Z]);
+                      
+                      normal3[X] = normal3[X] / normal_vector;
+                      normal3[Y] = normal3[Y] / normal_vector;
+                      normal3[Z] = normal3[Z] / normal_vector;
+
+                      observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
+                      observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
+                      observer[Z] = pView[Z] - ptsPatch->ponto[i][j][Z];
+                       
+                      product_vector_normal = CalculaAngulo(normal3[X], normal3[Y], normal3[Z], observer[X], observer[Y], observer[Z]);
+
+                      vector_length = CalculaNormaDoVetor(observer[X],observer[Y], observer[Z]);
+                      
+                      angle_inclination = product_vector_normal / vector_length;
+
+                      if(angle_inclination < 0.0f)
+                        angle_inclination *= -1.00f;
+                    
+                      glBegin(GL_POLYGON);
+                        glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
+                        glNormal3fv(normal3);
+                        glVertex3fv(ptsPatch->ponto[i][j]);
+                        glVertex3fv(ptsPatch->ponto[i + 1][j]);
+                        glVertex3fv(ptsPatch->ponto[i + 1][j + 1]);
+                      glEnd();
+
+
+
+                      // Para a normal4
+                      
+                      normal_vector = CalculaNormaDoVetor(float normal4[Y], normal4[Y], normal4[Z]);
+                      
+                      normal4[X] = normal4[X] / normal_vector;
+                      normal4[Y] = normal4[Y] / normal_vector;
+                      normal4[Z] = normal4[Z] / normal_vector;
+
+                      observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
+                      observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
+                      observer[Z] = pView[Z] - ptsPatch->ponto[i][j][Z];
+                       
+                      product_vector_normal = CalculaAngulo(normal4[X], normal4[Y], normal4[Z], observer[X], observer[Y], observer[Z]);
+
+                      vector_length = CalculaNormaDoVetor(observer[X],observer[Y], observer[Z]);
+                      
+                      angle_inclination = product_vector_normal / vector_length;
+
+                      if(angle_inclination < 0.0f)
+                        angle_inclination *= -1.00f;
+                    
+                      glBegin(GL_POLYGON);
+                        glColor3f(angle_inclination * vcolor[cc][X], angle_inclination * vcolor[cc][Y], angle_inclination * vcolor[cc][Z]);
+                        glNormal3fv(normal4);
+                        glVertex3fv(ptsPatch->ponto[i][j]);
+                        glVertex3fv(ptsPatch->ponto[i][j + 1]);
+                        glVertex3fv(ptsPatch->ponto[i + 1][j + 1]);
+                      glEnd();
+
+
+                    }
                 }
             }
             break;
@@ -484,6 +559,10 @@ void MostrarUmPatch(int cc)
 
 float CalculaAngulo(float normal1_X, float normal1_Y, float normal1_Z, float normal2_X, float normal2_Y, float normal2_Z){
   return ((normal1_X * normal2_X) + (normal1_Y * normal2_Y) + (normal1_Z * normal2_Z));
+}
+
+float CalculaNormaDoVetor(float normal_X, float normal_Y, float normal_Z){
+  return sqrt((normal_X * normal_X) + (normal_Y * normal_Y) + (normal_Z * normal_Z));
 }
 
 void MostrarPtosPoligControle(matriz *sup)
