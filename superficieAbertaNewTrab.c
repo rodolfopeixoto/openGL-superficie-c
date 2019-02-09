@@ -94,7 +94,7 @@ matriz *pcPatch = NULL;    // matriz de pontos para um patch
 matriz *ptsPatch = NULL;   // matriiz de PONTOS na superficie PATCH calclulados
 
 void DisenaSuperficie(void);
-float CalculaAngulo();
+float CalculaAngulo(float);
 
 // ----------------------------------------------------------------------------
 // OBSERVACAO 1:
