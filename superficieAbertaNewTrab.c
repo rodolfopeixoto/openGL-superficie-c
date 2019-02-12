@@ -100,6 +100,7 @@ float CalculaNormalEntre(float, float, float, float);
 float CriaVetorX(int, int, int,int);
 float CriaVetorY(int, int, int,int);
 float CriaVetorZ(int, int, int,int);
+float CalculaVetorUnitario(float, float);
 
 // ----------------------------------------------------------------------------
 // OBSERVACAO 1:
@@ -431,9 +432,9 @@ void MostrarUmPatch(int cc)
                       
                       normal_vector = CalculaNormaDoVetor(normal1[Y], normal1[Y], normal1[Z]);
                       
-                      normal1[X] = normal1[X] / normal_vector;
-                      normal1[Y] = normal1[Y] / normal_vector;
-                      normal1[Z] = normal1[Z] / normal_vector;
+                      normal1[X] = CalculaVetorUnitario(normal1[X], normal_vector);
+                      normal1[Y] = CalculaVetorUnitario(normal1[Y], normal_vector);
+                      normal1[Z] = CalculaVetorUnitario(normal1[Z], normal_vector);
 
                       observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
                       observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
@@ -460,10 +461,10 @@ void MostrarUmPatch(int cc)
                       // Para a normal2
 
                       normal_vector = CalculaNormaDoVetor(normal2[Y], normal2[Y], normal2[Z]);
-                      
-                      normal2[X] = normal2[X] / normal_vector;
-                      normal2[Y] = normal2[Y] / normal_vector;
-                      normal2[Z] = normal2[Z] / normal_vector;
+
+                      normal2[X] = CalculaVetorUnitario(normal2[X], normal_vector);
+                      normal2[Y] = CalculaVetorUnitario(normal2[Y], normal_vector);
+                      normal2[Z] = CalculaVetorUnitario(normal2[Z], normal_vector);
 
                       observer[X] = pView[X] - ptsPatch->ponto[i][j+1][X];
                       observer[Y] = pView[Y] - ptsPatch->ponto[i][j+1][Y];
@@ -493,10 +494,10 @@ void MostrarUmPatch(int cc)
                       // Para a normal3
                       
                       normal_vector = CalculaNormaDoVetor(normal3[Y], normal3[Y], normal3[Z]);
-                      
-                      normal3[X] = normal3[X] / normal_vector;
-                      normal3[Y] = normal3[Y] / normal_vector;
-                      normal3[Z] = normal3[Z] / normal_vector;
+
+                      normal3[X] = CalculaVetorUnitario(normal3[X], normal_vector);
+                      normal3[Y] = CalculaVetorUnitario(normal3[Y], normal_vector);
+                      normal3[Z] = CalculaVetorUnitario(normal3[Z], normal_vector);
 
                       observer[X] = pView[X] - ptsPatch->ponto[i][j][X];
                       observer[Y] = pView[Y] - ptsPatch->ponto[i][j][Y];
@@ -524,10 +525,10 @@ void MostrarUmPatch(int cc)
                       // Para a normal4
                       
                       normal_vector = CalculaNormaDoVetor(normal4[Y], normal4[Y], normal4[Z]);
-                      
-                      normal4[X] = normal4[X] / normal_vector;
-                      normal4[Y] = normal4[Y] / normal_vector;
-                      normal4[Z] = normal4[Z] / normal_vector;
+
+                      normal4[X] = CalculaVetorUnitario(normal4[X], normal_vector);
+                      normal4[Y] = CalculaVetorUnitario(normal4[Y], normal_vector);
+                      normal4[Z] = CalculaVetorUnitario(normal4[Z], normal_vector);
 
                       observer[X] = pView[X] - ptsPatch->ponto[i+1][j+1][X];
                       observer[Y] = pView[Y] - ptsPatch->ponto[i+1][j+1][Y];
@@ -580,6 +581,9 @@ float CriaVetorY(int i,int j,int m,int  n){
     return ptsPatch->ponto[i][j][Y] - ptsPatch->ponto[m][n][Y];
 }
 
+float CalculaVetorUnitario(float vector_a, float vector_b){
+    return vector_a / vector_b;
+}
 
 
 float CriaVetorZ(int i,int j,int  m, int n){
