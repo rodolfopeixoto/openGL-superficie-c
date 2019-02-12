@@ -568,16 +568,16 @@ float CalculaNormaDoVetor(float normal_X, float normal_Y, float normal_Z){
 }
 
 float CalculaNormalEntre(float vector_a_X, float vector_b_Y, float vector_a_Y, float vector_b_X){
-    return vector_a_X * vector_b_Y - vector_a_Y * vector_b_X
+    return vector_a_X * vector_b_Y - vector_a_Y * vector_b_X;
 }
 
 float CriaVetorX(int i, int j, int m, int n){
-    vector_a[X] = ptsPatch->ponto[i][j][X] - ptsPatch->ponto[m][n][X];
+    return ptsPatch->ponto[i][j][X] - ptsPatch->ponto[m][n][X];
 }
 
 
 float CriaVetorY(int i,int j,int m,int  n){
-    vector_a[Y] = ptsPatch->ponto[i][j][Y] - ptsPatch->ponto[m][n][Y];
+    return ptsPatch->ponto[i][j][Y] - ptsPatch->ponto[m][n][Y];
 }
 
 
